@@ -1,0 +1,40 @@
+:root {
+  /* Colors */
+  --color-gold: #c5a059;
+  --color-gold-dim: #8a703d;
+  --color-leather: #5d1a1a;
+  --color-leather-dark: #3a0f0f;
+  --color-paper: #f0e6d2;
+  --color-paper-dim: #d9cab3;
+  --color-text: #2c1810;
+  --color-ribbon: #a62020;
+
+  /* Fonts */
+  --font-serif: "Times New Roman", serif;
+  --font-display: "Cinzel", serif;
+  /* We might load this accessing google fonts */
+
+  /* Textures */
+  --bg-wood: url('/assets/bg-wood.png');
+  --bg-leather: url('/assets/test.jpg');
+  --bg-paper: url('/assets/page-texture.png');
+
+  /* Sizes */
+  --book-width: 600px;
+  /* Closed width */
+  --book-height: 800px;
+  --book-depth: 40px;
+}
+
+body {
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
+  background-color: #1a0f0f;
+  font-family: var(--font-serif);
+  color: var(--color-text);
+}
+
+* {
+  box-sizing: border-box;
+}
