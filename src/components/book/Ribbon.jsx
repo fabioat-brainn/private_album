@@ -37,7 +37,7 @@ const Ribbon = ({ isOpen, onLayoutChange, onAddPhotos, onLogout, onManagePeople,
                 position: 'absolute',
                 right: isMobile ? '20px' : '40px',
                 top: isMobile ? 'auto' : '-10px',
-                bottom: isMobile ? '30px' : 'auto',
+                bottom: isMobile ? '60px' : 'auto',
                 width: '60px',
                 height: isMobile
                     ? (expanded ? '350px' : '60px')
