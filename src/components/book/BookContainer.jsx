@@ -35,6 +35,23 @@ const BookContainer = () => {
         setIsOpen(true);
 
         try {
+            // Robust Ownership Check
+            try {
+                const album = await albumService.getAlbum(albumId);
+                if (album && album.owner_id === user?.id) {
+                    setIsOwner(true);
+                } else {
+                    // Check members as fallback
+                    const members = await albumService.getMembers(albumId);
+                    const myMembership = members.find(m => m.user_id === user?.id);
+                    setIsOwner(myMembership?.role === 'owner');
+                }
+            } catch (e) {
+                console.warn("Ownership check failed", e);
+                setIsOwner(false);
+            }
+
+            // Load Photos
             const data = await photoService.getPhotos(albumId);
             const mapped = data.map(p => ({
                 id: p.id,
@@ -44,19 +61,6 @@ const BookContainer = () => {
                 storage_path: p.storage_path
             }));
             setPhotos(mapped);
-
-            try {
-                const members = await albumService.getMembers(albumId);
-                const myMembership = members.find(m => m.user_id === user.id);
-                if (myMembership && myMembership.role === 'owner') {
-                    setIsOwner(true);
-                } else {
-                    setIsOwner(false);
-                }
-            } catch (e) {
-                console.warn("Failed to check ownership", e);
-                setIsOwner(false);
-            }
 
         } catch (error) {
             console.error("Failed to load album data:", error);
@@ -98,14 +102,14 @@ const BookContainer = () => {
     }, [photos, layout]);
 
     const leafCount = isMobile
-        ? Math.max(0, pages.length - 1)
+        ? pages.length
         : Math.max(0, Math.ceil((pages.length - 1) / 2));
 
     const leaves = useMemo(() => {
         const l = [];
         for (let i = 0; i < leafCount; i++) {
             if (isMobile) {
-                const idx = i + 1;
+                const idx = i;
                 l.push({
                     index: i,
                     front: pages[idx] || [],
@@ -263,19 +267,21 @@ const BookContainer = () => {
                 </div>
                 <div className="cover-back">
                     <div style={{ width: '100%', height: '100%' }}>
-                        <PageContent
-                            photos={pages[0] || []}
-                            layout={layout}
-                            side="left"
-                            pageNumber={1}
-                            onNext={nextSpread}
-                            onPrev={null}
-                            isFirst={true}
-                            onOpenCalendar={() => setIsCalendarOpen(true)}
-                            onDeletePhoto={handleDeletePhoto}
-                            isOwner={isOwner}
-                            allowBothNav={isMobile}
-                        />
+                        {!isMobile && (
+                            <PageContent
+                                photos={pages[0] || []}
+                                layout={layout}
+                                side="left"
+                                pageNumber={1}
+                                onNext={nextSpread}
+                                onPrev={null}
+                                isFirst={true}
+                                onOpenCalendar={() => setIsCalendarOpen(true)}
+                                onDeletePhoto={handleDeletePhoto}
+                                isOwner={isOwner}
+                                allowBothNav={isMobile}
+                            />
+                        )}
                     </div>
                 </div>
             </div>
@@ -303,6 +309,7 @@ const BookContainer = () => {
                                 pageNumber={leaf.frontPageNum}
                                 onNext={nextSpread}
                                 onPrev={prevSpread}
+                                isFirst={i === 0}
                                 isLast={i === leaves.length - 1 && leaf.back.length === 0}
                                 onOpenCalendar={() => setIsCalendarOpen(true)}
                                 onDeletePhoto={handleDeletePhoto}

@@ -35,13 +35,13 @@ const Ribbon = ({ isOpen, onLayoutChange, onAddPhotos, onLogout, onManagePeople,
             className="ribbon"
             style={{
                 position: isMobile ? 'fixed' : 'absolute',
-                right: isMobile ? '20px' : '40px',
+                right: isMobile ? '20px' : '50px',
                 top: isMobile ? 'auto' : '-10px',
-                bottom: isMobile ? 'calc(80px + env(safe-area-inset-bottom))' : 'auto',
+                bottom: isMobile ? 'calc(50px + env(safe-area-inset-bottom))' : 'auto',
                 width: '60px',
                 height: isMobile
                     ? (expanded ? '400px' : '60px')
-                    : (expanded ? 'calc(100% + 10px)' : '80px'),
+                    : (expanded ? 'calc(100% + 10px)' : '90px'),
 
                 // Fabric Texture (Weave Pattern)
                 background: `

@@ -248,13 +248,16 @@
     /* Redefine cover transform for mobile */
     .book.mobile-notebook .cover {
         transform-origin: top;
-        /* When open, it flips UP (-180 around X) */
+        /* Closing: Opacity restores instantly */
+        transition: transform 1.2s cubic-bezier(0.645, 0.045, 0.355, 1), opacity 0s;
     }
 
     .book.mobile-notebook.open .cover {
         transform: rotateX(180deg);
         opacity: 0;
         pointer-events: none;
+        /* Opening: Transform 1.2s, Opacity waits 1.1s then snaps to 0 */
+        transition: transform 1.2s cubic-bezier(0.645, 0.045, 0.355, 1), opacity 0s linear 1.1s;
     }
 
     /* Cover Back Face must also rotate properly */
@@ -299,11 +302,7 @@
         pointer-events: none;
     }
 
-    /* Ensure opacity transitions are safe */
-    .book.mobile-notebook.open .cover {
-        opacity: 0 !important;
-    }
-}
+
 }
 
 .passcode-input::placeholder {
