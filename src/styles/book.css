@@ -239,6 +239,7 @@
     .book.mobile-notebook {
         /* Center perfectly */
         transform: none !important;
+        scale: 0.85; 
     }
 
     .book.mobile-notebook.open {
