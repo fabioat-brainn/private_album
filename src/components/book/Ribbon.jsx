@@ -37,10 +37,10 @@ const Ribbon = ({ isOpen, onLayoutChange, onAddPhotos, onLogout, onManagePeople,
                 position: 'absolute',
                 right: isMobile ? '20px' : '40px',
                 top: isMobile ? 'auto' : '-10px',
-                bottom: isMobile ? '60px' : 'auto',
+                bottom: isMobile ? 'calc(80px + env(safe-area-inset-bottom))' : 'auto',
                 width: '60px',
                 height: isMobile
-                    ? (expanded ? '350px' : '60px')
+                    ? (expanded ? '400px' : '60px')
                     : (expanded ? 'calc(100% + 10px)' : '80px'),
 
                 // Fabric Texture (Weave Pattern)

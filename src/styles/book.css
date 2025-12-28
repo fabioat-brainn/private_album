@@ -4,6 +4,7 @@
     align-items: center;
     width: 100vw;
     height: 100dvh;
+    position: relative;
     background-image: var(--bg-wood);
     background-size: cover;
     background-position: center;
