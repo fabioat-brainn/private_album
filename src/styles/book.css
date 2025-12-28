@@ -237,12 +237,12 @@
 
     /* Reset interactions for mobile vertical */
     .book.mobile-notebook {
-        /* No sideways shift on open */
-        transform: translateY(10%) !important;
+        /* Center perfectly */
+        transform: none !important;
     }
 
     .book.mobile-notebook.open {
-        transform: translateY(10%);
+        transform: none !important;
     }
 
     /* Redefine cover transform for mobile */
@@ -253,16 +253,14 @@
 
     .book.mobile-notebook.open .cover {
         transform: rotateX(180deg);
-        opacity: 1;
-        /* Ensure visibility */
-        pointer-events: auto;
-        /* Ensure interactivity */
+        opacity: 0;
+        pointer-events: none;
     }
 
     /* Cover Back Face must also rotate properly */
     .book.mobile-notebook .cover-back {
         transform: rotateX(180deg) rotateY(0deg);
-        /* Reset Y, use X */
+        opacity: 0;
     }
 
     /* Spiral Binding */
@@ -295,15 +293,17 @@
         /* Top shadow */
     }
 
-    .book.mobile-notebook .page-face.back .texture-layer {
-        box-shadow: inset 0 -15px 20px rgba(0, 0, 0, 0.15);
-        /* Bottom shadow? */
+    /* Hide the "Back" page content (Top page) on mobile */
+    .book.mobile-notebook .page-face.back {
+        opacity: 0;
+        pointer-events: none;
     }
 
     /* Ensure opacity transitions are safe */
     .book.mobile-notebook.open .cover {
-        opacity: 1 !important;
+        opacity: 0 !important;
     }
+}
 }
 
 .passcode-input::placeholder {
