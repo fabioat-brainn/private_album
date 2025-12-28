@@ -34,7 +34,7 @@ const Ribbon = ({ isOpen, onLayoutChange, onAddPhotos, onLogout, onManagePeople,
             ref={ribbonRef}
             className="ribbon"
             style={{
-                position: 'absolute',
+                position: isMobile ? 'fixed' : 'absolute',
                 right: isMobile ? '20px' : '40px',
                 top: isMobile ? 'auto' : '-10px',
                 bottom: isMobile ? 'calc(80px + env(safe-area-inset-bottom))' : 'auto',
